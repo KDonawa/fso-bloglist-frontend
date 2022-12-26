@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import blogService from "../services/blogs";
+import PropTypes from "prop-types";
 
 function BlogList({ blogs, setBlogs, user }) {
   async function deleteBlog(id) {
@@ -27,6 +28,12 @@ function BlogList({ blogs, setBlogs, user }) {
     </>
   );
 }
+
+BlogList.propTypes = {
+  blogs: PropTypes.array.isRequired,
+  setBlogs: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
 
 function Blog({ blog, deleteBlog, isOwner }) {
   const [showDetails, setShowDetails] = useState(false);
@@ -59,7 +66,9 @@ function Blog({ blog, deleteBlog, isOwner }) {
     <div style={blogStyle}>
       <div>
         {blog.title} {blog.author}
-        <button onClick={() => setShowDetails(!showDetails)}>{showDetails ? "hide" : "view"}</button>
+        <button onClick={() => setShowDetails(!showDetails)}>
+          {showDetails ? "hide" : "view"}
+        </button>
       </div>
       {showDetails && (
         <>
@@ -67,12 +76,18 @@ function Blog({ blog, deleteBlog, isOwner }) {
           <div>
             likes {likes} <button onClick={updateLikes}>like</button>{" "}
           </div>
-          <div>{blog.author}</div>
+          <div>{blog.user.name}</div>
           {isOwner && <button onClick={handleDelete}>delete</button>}
         </>
       )}
     </div>
   );
 }
+
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  deleteBlog: PropTypes.func.isRequired,
+  isOwner: PropTypes.bool.isRequired,
+};
 
 export default BlogList;

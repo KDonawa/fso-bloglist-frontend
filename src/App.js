@@ -46,7 +46,7 @@ const App = () => {
       return true;
     } catch (error) {
       displayNotification({
-        message: `A new blog could not be created`,
+        message: "A new blog could not be created",
         type: "error",
       });
 

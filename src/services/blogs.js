@@ -18,5 +18,15 @@ async function create(data) {
   return response.data;
 }
 
-const blogService = { getAll, create, setAuth };
+async function update(id, data) {
+  const response = await axios.put(`${baseUrl}/${id}`, data);
+  return response.data;
+}
+
+async function remove(id) {
+  const config = { headers: auth };
+  await axios.delete(`${baseUrl}/${id}`, config);
+}
+
+const blogService = { setAuth, getAll, create, update, remove };
 export default blogService;

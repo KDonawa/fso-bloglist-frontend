@@ -8,12 +8,14 @@ function BlogForm({ addBlog }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    await addBlog({ title, author, url });
+    const isSuccessful = await addBlog({ title, author, url });
 
-    //reset form
-    setTitle("");
-    setAuthor("");
-    setUrl("");
+    if (isSuccessful) {
+      //reset form
+      setTitle("");
+      setAuthor("");
+      setUrl("");
+    }
   }
 
   return (
@@ -22,26 +24,12 @@ function BlogForm({ addBlog }) {
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">
           Title:
-          <input
-            type="text"
-            name="title"
-            id="title"
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-            required
-          />
+          <input type="text" id="title" value={title} onChange={({ target }) => setTitle(target.value)} required />
         </label>
         <br />
         <label htmlFor="author">
           Author:
-          <input
-            type="text"
-            name="author"
-            id="author"
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
-            required
-          />
+          <input type="text" id="author" value={author} onChange={({ target }) => setAuthor(target.value)} required />
         </label>
         <br />
         <label htmlFor="url">

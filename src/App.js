@@ -5,12 +5,14 @@ import loginService from "./services/login";
 import LoginForm from "./components/LoginForm";
 import BlogForm from "./components/BlogForm";
 import Notification from "./components/Notification";
+import Toggleable from "./components/Toggleable";
 
 const App = () => {
   const storageKey = "blogAppUser";
   const [notification, setNotification] = useState(null);
   const [user, setUser] = useState(null);
   const [blogs, setBlogs] = useState([]);
+  const [blogFormVisibility, setBlogFormVisibility] = useState(false);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -29,7 +31,6 @@ const App = () => {
     setNotification(notification);
     setTimeout(() => setNotification(null), timeoutSeconds * 1000);
   }
-
   async function addBlog(data) {
     try {
       const blog = await blogService.create(data);
@@ -39,6 +40,8 @@ const App = () => {
         message: `A new blog - ${blog.title} by ${blog.author} was added!`,
         type: "success",
       });
+
+      setBlogFormVisibility(false);
 
       return true;
     } catch (error) {
@@ -92,8 +95,16 @@ const App = () => {
         <>
           <p>{user.name} logged in</p>
           <button onClick={logoutUser}>Logout</button>
-          <BlogList blogs={blogs} />
-          <BlogForm addBlog={addBlog} />
+
+          <BlogList blogs={blogs} setBlogs={setBlogs} user={user} />
+
+          <Toggleable
+            isVisible={blogFormVisibility}
+            toggleVisibility={setBlogFormVisibility}
+            buttonLabel={{ visible: "Cancel", hidden: "New blog" }}
+          >
+            <BlogForm addBlog={addBlog} />
+          </Toggleable>
         </>
       )}
     </div>

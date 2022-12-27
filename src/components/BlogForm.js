@@ -29,6 +29,7 @@ function BlogForm({ addBlog }) {
             id="title"
             value={title}
             onChange={({ target }) => setTitle(target.value)}
+            placeholder="Title"
             required
           />
         </label>
@@ -56,7 +57,9 @@ function BlogForm({ addBlog }) {
           />
         </label>
         <br />
-        <button type="submit">Submit</button>
+        <button className="blog-form__submit-btn" type="submit">
+          Submit
+        </button>
       </form>
     </>
   );

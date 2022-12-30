@@ -39,8 +39,16 @@ function BlogList({ user, notify }) {
     try {
       await blogService.remove(id);
       setBlogs(blogs.filter((blog) => blog.id !== id));
+      notify({
+        message: "A blog was deleted",
+        type: "success",
+      });
     } catch (error) {
       console.log(error);
+      notify({
+        message: "Blog could not be deleted",
+        type: "error",
+      });
     }
   }
   async function updateLikes(blog) {

@@ -44,7 +44,9 @@ function LoginForm({ loginUser }) {
           />
         </label>
         <br></br>
-        <button type="submit">Login</button>
+        <button className="login-btn" type="submit">
+          Login
+        </button>
       </form>
     </>
   );

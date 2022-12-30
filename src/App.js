@@ -65,7 +65,9 @@ const App = () => {
       ) : (
         <>
           <p>{user.name} logged in</p>
-          <button onClick={logoutUser}>Logout</button>
+          <button className="logout-btn" onClick={logoutUser}>
+            Logout
+          </button>
 
           <BlogList user={user} notify={displayNotification} />
         </>

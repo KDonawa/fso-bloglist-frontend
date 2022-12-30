@@ -29,7 +29,6 @@ function BlogForm({ addBlog }) {
             id="title"
             value={title}
             onChange={({ target }) => setTitle(target.value)}
-            placeholder="Title"
             required
           />
         </label>

@@ -19,9 +19,11 @@ function Blog({ blog, isOwner, updateLikes, deleteBlog }) {
   };
 
   return (
-    <div style={blogStyle}>
+    <div className="blog" style={blogStyle}>
       <div>
-        <span>{blog.title}</span> <span>{blog.author}</span>{" "}
+        <span>
+          {blog.title} {blog.author}
+        </span>{" "}
         <button
           className="blog__view-btn"
           onClick={() => setShowDetails(!showDetails)}
@@ -41,8 +43,12 @@ function Blog({ blog, isOwner, updateLikes, deleteBlog }) {
               like
             </button>
           </div>
-          <div>{blog.user && blog.user.name}</div>
-          {isOwner && <button onClick={handleDelete}>delete</button>}
+          <div>{blog.user !== null && blog.user.name}</div>
+          {isOwner && (
+            <button className="blog__delete-btn" onClick={handleDelete}>
+              delete
+            </button>
+          )}
         </>
       )}
     </div>
